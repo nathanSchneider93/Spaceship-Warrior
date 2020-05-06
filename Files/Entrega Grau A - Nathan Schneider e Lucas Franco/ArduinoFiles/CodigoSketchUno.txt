@@ -1,0 +1,41 @@
+//Nathan Schneider - 2020/1
+
+int buttonNum1 = 2;
+int buttonNum2 = 3;
+int buttonState1 = 0;
+int buttonState2 = 0;
+
+void (*funcReset)()=0;
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(buttonNum1,INPUT);
+  pinMode(buttonNum2,INPUT);
+  //funcReset();
+}
+
+
+void loop() 
+{  
+ buttonState1 = digitalRead(buttonNum1);
+ buttonState2 = digitalRead(buttonNum2);
+
+ if(buttonState1 == 1)
+ {
+  Serial.write(1);
+  Serial.flush();
+  delay(20);  
+  //Serial.print("LEFT");
+  //delay(1000);    
+ }
+ if(buttonState2 == 1)
+ {
+  Serial.write(2);
+  Serial.flush();
+  delay(20);
+  //Serial.print("RIGHT");
+  //delay(1000);    
+ }
+ 
+}
