@@ -10,7 +10,7 @@ namespace SpaceshipWarrior.PlayerModule
 
         public void OnUpdate()
         {
-            transform.Translate(Vector3.right * _movementDirection * _speed * Time.deltaTime);
+            transform.Translate(Vector3.right * (_movementDirection * _speed * Time.deltaTime));
         }
 
         public void SetMovementDirection(int value)
