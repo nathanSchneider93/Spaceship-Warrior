@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace SpaceshipWarrior.PlayerModule
 {
@@ -6,11 +7,30 @@ namespace SpaceshipWarrior.PlayerModule
     {
         [SerializeField] private Transform _origin;
         [SerializeField] private PlayerCannonProjectile _projectile;
+        [SerializeField] private int _fireRate;
+
+        private bool _locked;
 
         public void Fire()
         {
+            if (_locked)
+            {
+                return;
+            }
+
             PlayerCannonProjectile projectile = Instantiate(_projectile, _origin.position, _origin.rotation);
             projectile.Initialize(_origin.forward);
+
+            StartCoroutine(LockTimerCoroutine());
+        }
+
+        private IEnumerator LockTimerCoroutine()
+        {
+            _locked = true;
+
+            yield return new WaitForSeconds(_fireRate);
+
+            _locked = false;
         }
     }
 }
