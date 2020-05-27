@@ -21,30 +21,5 @@ namespace SpaceshipWarrior.InputModule
         {
             return false;
         }
-
-        public override int GetHorizontalAxis()
-        {
-            var axisValue = 0;
-            int portValue = _port.ReadByte();
-
-            switch (portValue)
-            {
-                case 1:
-                {
-                    axisValue = -1;
-
-                    break;
-                }
-
-                case 2:
-                {
-                    axisValue = 1;
-
-                    break;
-                }
-            }
-
-            return axisValue;
-        }
     }
 }

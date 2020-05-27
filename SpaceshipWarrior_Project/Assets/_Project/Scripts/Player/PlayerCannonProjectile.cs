@@ -10,6 +10,7 @@ namespace SpaceshipWarrior.PlayerModule
 
         public void Initialize(Vector3 direction)
         {
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
             _rigidbody.velocity = direction * _speed;
         }
 

@@ -6,7 +6,7 @@ namespace SpaceshipWarrior.PlayerModule
     public class PlayerCannon : MonoBehaviour
     {
         [SerializeField] private Transform _origin;
-        [SerializeField] private PlayerCannonProjectile _projectile;
+        [SerializeField] private PlayerCannonProjectile _projectilePrefab;
         [SerializeField] private int _fireRate;
 
         private bool _locked;
@@ -18,7 +18,7 @@ namespace SpaceshipWarrior.PlayerModule
                 return;
             }
 
-            PlayerCannonProjectile projectile = Instantiate(_projectile, _origin.position, _origin.rotation);
+            PlayerCannonProjectile projectile = Instantiate(_projectilePrefab, _origin.position, _origin.rotation);
             projectile.Initialize(_origin.forward);
 
             StartCoroutine(LockTimerCoroutine());

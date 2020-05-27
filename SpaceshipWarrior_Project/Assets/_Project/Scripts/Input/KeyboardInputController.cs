@@ -15,10 +15,5 @@ namespace SpaceshipWarrior.InputModule
         {
             return Input.GetKeyDown(_shootKey);
         }
-
-        public override int GetHorizontalAxis()
-        {
-            return (int)Input.GetAxisRaw("Horizontal");
-        }
     }
 }

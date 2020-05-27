@@ -6,10 +6,7 @@ namespace SpaceshipWarrior.InputModule
     {
         public delegate void KeyPressedHandler();
 
-        public delegate void AxisChangedHandler(int value);
-
         public event KeyPressedHandler OnShootKeyPressed;
-        public event AxisChangedHandler OnHorizontalAxisChanged;
 
         [SerializeField] private ArduinoInputController _arduinoController;
         [SerializeField] private KeyboardInputController _keyboardController;
@@ -24,9 +21,6 @@ namespace SpaceshipWarrior.InputModule
 
         public void OnUpdate()
         {
-            int horizontalAxis = CurrentController.GetHorizontalAxis();
-            OnHorizontalAxisChanged?.Invoke(horizontalAxis);
-
             if (CurrentController.GetShootKeyDown())
             {
                 OnShootKeyPressed?.Invoke();
