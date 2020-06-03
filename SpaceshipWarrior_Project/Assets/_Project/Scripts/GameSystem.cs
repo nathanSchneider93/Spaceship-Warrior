@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SpaceshipWarrior
 {
-    public class GameManager : MonoBehaviour
+    public class GameSystem : MonoBehaviour
     {
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private PlayerController _playerController;
@@ -14,6 +14,7 @@ namespace SpaceshipWarrior
         private void Awake()
         {
             _inputManager.Initialize();
+            _inputManager.OnLookPointChanged += _playerController.LookAtScreenPoint;
             _inputManager.OnShootKeyPressed += _playerController.FireCannon;
 
             _playerController.Initialize();

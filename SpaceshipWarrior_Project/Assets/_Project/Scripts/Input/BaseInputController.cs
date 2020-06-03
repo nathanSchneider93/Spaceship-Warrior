@@ -7,5 +7,7 @@ namespace SpaceshipWarrior.InputModule
         public abstract void Initialize();
 
         public abstract bool GetShootKeyDown();
+
+        public abstract Vector3 GetLookPoint();
     }
 }

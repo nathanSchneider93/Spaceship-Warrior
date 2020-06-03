@@ -6,7 +6,10 @@ namespace SpaceshipWarrior.InputModule
     {
         public delegate void KeyPressedHandler();
 
+        public delegate void LookDirectionChangedHandler(Vector3 value);
+
         public event KeyPressedHandler OnShootKeyPressed;
+        public event LookDirectionChangedHandler OnLookPointChanged;
 
         [SerializeField] private ArduinoInputController _arduinoController;
         [SerializeField] private KeyboardInputController _keyboardController;
@@ -21,6 +24,9 @@ namespace SpaceshipWarrior.InputModule
 
         public void OnUpdate()
         {
+            Vector3 lookPoint = CurrentController.GetLookPoint();
+            OnLookPointChanged?.Invoke(lookPoint);
+
             if (CurrentController.GetShootKeyDown())
             {
                 OnShootKeyPressed?.Invoke();

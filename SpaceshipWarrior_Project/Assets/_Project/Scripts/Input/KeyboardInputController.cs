@@ -15,5 +15,10 @@ namespace SpaceshipWarrior.InputModule
         {
             return Input.GetKeyDown(_shootKey);
         }
+
+        public override Vector3 GetLookPoint()
+        {
+            return Input.mousePosition;
+        }
     }
 }

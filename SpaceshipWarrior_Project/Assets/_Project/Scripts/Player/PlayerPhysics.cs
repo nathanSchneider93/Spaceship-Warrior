@@ -6,16 +6,16 @@ namespace SpaceshipWarrior.PlayerModule
     {
         [SerializeField] private float _speed;
 
-        private int _movementDirection;
+        public Vector3 Position => transform.position;
 
         public void OnUpdate()
         {
-            transform.Translate(Vector3.right * (_movementDirection * _speed * Time.deltaTime));
         }
 
-        public void SetMovementDirection(int value)
+        public void LookAtPoint(Vector3 value)
         {
-            _movementDirection = value;
+            Vector3 lookDirection = (value - Position).normalized;
+            transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
         }
     }
 }

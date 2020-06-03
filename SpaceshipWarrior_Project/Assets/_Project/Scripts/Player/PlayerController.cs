@@ -2,7 +2,7 @@
 
 namespace SpaceshipWarrior.PlayerModule
 {
-    public class PlayerController : MonoBehaviour
+    public sealed class PlayerController : MonoBehaviour
     {
         [SerializeField] private PlayerPhysics _physics;
         [SerializeField] private PlayerCannon _cannon;
@@ -16,14 +16,22 @@ namespace SpaceshipWarrior.PlayerModule
             _physics.OnUpdate();
         }
 
-        public void SetMovementDirection(int value)
-        {
-            _physics.SetMovementDirection(value);
-        }
-
         public void FireCannon()
         {
             _cannon.Fire();
+        }
+
+        public void LookAtScreenPoint(Vector3 value)
+        {
+            _physics.LookAtPoint(CalculateWorldPoint(value));
+        }
+
+        private Vector3 CalculateWorldPoint(Vector3 mousePosition)
+        {
+            Vector3 cameraPosition = CameraSystem.GetCameraPosition();
+            mousePosition.z = cameraPosition.y - _physics.Position.y;
+
+            return CameraSystem.ScreenToWorldPoint(mousePosition);
         }
     }
 }

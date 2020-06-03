@@ -21,5 +21,10 @@ namespace SpaceshipWarrior.InputModule
         {
             return false;
         }
+
+        public override Vector3 GetLookPoint()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
