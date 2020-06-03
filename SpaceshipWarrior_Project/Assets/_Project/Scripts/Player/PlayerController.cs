@@ -9,6 +9,7 @@ namespace SpaceshipWarrior.PlayerModule
 
         public void Initialize()
         {
+            _physics.Initialize();
         }
 
         public void OnUpdate()
