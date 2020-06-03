@@ -1,0 +1,3 @@
+[submodule "Packages/coimbra-framework"]
+	path = Packages/coimbra-framework
+	url = git@gitlab.com:coimbra-framework/coimbra-framework.git
