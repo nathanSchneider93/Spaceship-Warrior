@@ -14,7 +14,8 @@ public class MoveNaveInimiga : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         posicaoX *= velocidade;
 
         if (posicaoX < -3.0f)
