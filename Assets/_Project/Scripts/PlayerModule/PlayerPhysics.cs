@@ -22,8 +22,9 @@ namespace SpaceshipWarrior.PlayerModule
 
         public void LookAtPoint(Vector3 value)
         {
-            Vector3 lookDirection = (value - Position).normalized;
-            transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+            //aqui muda se o jogador estiver apenas com mouse e teclado
+            //Vector3 lookDirection = (value - Position).normalized;
+            //transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
         }
     }
 }

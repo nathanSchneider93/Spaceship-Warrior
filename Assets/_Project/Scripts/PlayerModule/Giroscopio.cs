@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using System;
 using System.IO.Ports;
 
-
-public class Arduino : MonoBehaviour
+public class Giroscopio : MonoBehaviour
 {
 
-    SerialPort stream;// = new SerialPort("COM4", 9600);
+    SerialPort sp;// = new SerialPort("COM4", 9600);
 
-    public GameObject target; // is the gameobject to
+    //public GameObject target; // is the gameobject to
 
     float acc_normalizer_factor = 0.00025f;
     float gyro_normalizer_factor = 1.0f / 32768.0f;   // 32768 is max value captured during test on imu
@@ -30,36 +28,39 @@ public class Arduino : MonoBehaviour
     public bool enableTranslation;
 
     // SELECT YOUR COM PORT AND BAUDRATE
-    string port = "COM4";
-    int baudrate = 9600;
-    int readTimeout = 26;
+    //string port = "COM4";
+    //int baudrate = 9600;
+    //int readTimeout = 1;
 
     void Start()
     {
         // open port. Be shure in unity edit > project settings > player is NET2.0 and not NET2.0Subset
-        stream = new SerialPort("\\\\.\\" + port, baudrate);
+        
 
+        sp = new SerialPort("\\\\.\\" + "COM4", 9600);
+        sp.Open();
         try
         {
-            stream.ReadTimeout = readTimeout;
+            sp.ReadTimeout = 2000;
         }
         catch (System.IO.IOException ioe)
         {
             Debug.Log("IOException: " + ioe.Message);
         }
 
-        stream.Open();
+        
+        //sp.ReadTimeout = 1;
     }
 
     void Update()
     {
         string dataString = "null received";
 
-        if (stream.IsOpen)
+        if (sp.IsOpen)
         {
             try
             {
-                dataString = stream.ReadLine();
+                dataString = sp.ReadLine();
           //      Debug.Log("RCV_ : " + dataString);
             }
             catch (System.IO.IOException ioe)
@@ -108,8 +109,8 @@ public class Arduino : MonoBehaviour
             curr_angle_y += gy;
             curr_angle_z += gz;
 
-            if (enableTranslation) target.transform.position = new Vector3(curr_offset_x, curr_offset_z, curr_offset_y);
-            if (enableRotation) target.transform.rotation = Quaternion.Euler(curr_angle_x * factor, -curr_angle_z * factor, curr_angle_y * factor);
+            if (enableTranslation) this.transform.position = new Vector3(curr_offset_x, curr_offset_z, curr_offset_y);
+            if (enableRotation) this.transform.rotation = Quaternion.Euler(0, -curr_angle_y * factor, 0);//-curr_angle_z * factor, curr_angle_y * factor);
         }
     }
 
