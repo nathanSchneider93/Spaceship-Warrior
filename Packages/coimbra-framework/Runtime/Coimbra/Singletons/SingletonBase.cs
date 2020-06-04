@@ -11,7 +11,7 @@ namespace Coimbra
         /// <summary>
         /// Use it before accessing the singleton when inside of OnDestroy callbacks.
         /// </summary>
-        public static bool Exists => _instance != null || GetInstance(false) != null;
+        public static bool Exists => _instance != null;
 
         /// <summary>
         /// Was this instance already initialized?
