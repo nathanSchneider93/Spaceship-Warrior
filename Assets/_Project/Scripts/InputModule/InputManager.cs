@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.IO.Ports;
+using UnityEngine;
 
 namespace SpaceshipWarrior.InputModule
 {
@@ -6,48 +8,94 @@ namespace SpaceshipWarrior.InputModule
     {
         public delegate void KeyPressedHandler();
 
-        public delegate void LookDirectionChangedHandler(Vector3 value);
+        public delegate void LookPointChangedHandler(Vector3 value);
 
-        public event KeyPressedHandler OnShootKeyPressed;
-        public event LookDirectionChangedHandler OnLookPointChanged;
+        public delegate void VerticalRotationDeltaChangedHandler(float value);
 
-        [SerializeField] private ArduinoInputController _arduinoController;
-        [SerializeField] private KeyboardInputController _keyboardController;
-        [SerializeField] private KeyCode _switchInputModeKey;
+        public event KeyPressedHandler OnFireKeyPressed;
+        public event LookPointChangedHandler OnLookPointChanged;
+        public event VerticalRotationDeltaChangedHandler OnVerticalRotationDeltaChanged;
 
-        private BaseInputController CurrentController { get; set; }
+        [Header("Arduino")]
+        [SerializeField] private string _arduinoPortName = "\\\\.\\" + "COM4";
+        [SerializeField] private int _arduinoBaudRate = 9600;
+
+        [Header("Keyboard and Mouse")]
+        [SerializeField] private KeyCode _fireKey;
+
+        private Action _onUpdate;
+        private SerialPort _serialPort;
 
         public void Initialize()
         {
-            CurrentController = _keyboardController;
+            var foundPort = false;
+            string[] availablePorts = SerialPort.GetPortNames();
+
+            foreach (string portName in availablePorts)
+            {
+                if (!string.Equals(portName, _arduinoPortName))
+                {
+                    continue;
+                }
+
+                foundPort = true;
+
+                break;
+            }
+
+            if (!foundPort)
+            {
+                _onUpdate = OnUpdateKeyboardAndMouse;
+
+                return;
+            }
+
+            _serialPort = new SerialPort(_arduinoPortName, _arduinoBaudRate) { ReadTimeout = 2000 };
+            _serialPort.Open();
+            _onUpdate = OnUpdateArduino;
         }
 
         public void OnUpdate()
         {
-            Vector3 lookPoint = CurrentController.GetLookPoint();
-            OnLookPointChanged?.Invoke(lookPoint);
+            _onUpdate?.Invoke();
+        }
 
-            if (CurrentController.GetShootKeyDown())
-            {
-                OnShootKeyPressed?.Invoke();
-            }
+        private void OnUpdateKeyboardAndMouse()
+        {
+            OnLookPointChanged?.Invoke(Input.mousePosition);
 
-            if (Input.GetKeyDown(_switchInputModeKey))
+            if (Input.GetKeyDown(_fireKey))
             {
-                SwitchCurrentController();
+                OnFireKeyPressed?.Invoke();
             }
         }
 
-        private void SwitchCurrentController()
+        private void OnUpdateArduino()
         {
-            if (CurrentController == _arduinoController)
+            var data = "Null received";
+
+            if (_serialPort.IsOpen)
             {
-                CurrentController = _keyboardController;
+                data = _serialPort.ReadLine();
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(data))
             {
-                CurrentController = _arduinoController;
+                return;
             }
+
+            const float tolerance = 0.025f;
+            const char splitter = ';';
+
+            string[] rawData = data.Split(splitter);
+            float verticalAngle = int.Parse(rawData[4]);
+
+            if (Mathf.Abs(verticalAngle) < tolerance)
+            {
+                verticalAngle = 0f;
+            }
+
+            OnVerticalRotationDeltaChanged?.Invoke(-verticalAngle);
         }
     }
 }

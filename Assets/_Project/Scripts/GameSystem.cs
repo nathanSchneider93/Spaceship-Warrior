@@ -15,7 +15,8 @@ namespace SpaceshipWarrior
         {
             _inputManager.Initialize();
             _inputManager.OnLookPointChanged += _playerController.LookAtScreenPoint;
-            _inputManager.OnShootKeyPressed += _playerController.FireCannon;
+            _inputManager.OnVerticalRotationDeltaChanged += _playerController.AddVerticalRotationDelta;
+            _inputManager.OnFireKeyPressed += _playerController.FireCannon;
 
             _playerController.Initialize();
         }

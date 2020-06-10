@@ -27,6 +27,12 @@ namespace SpaceshipWarrior.PlayerModule
             _physics.LookAtPoint(CalculateWorldPoint(value));
         }
 
+        public void AddVerticalRotationDelta(float value)
+        {
+            var eulerAngles = new Vector3(_physics.EulerAngles.x, value, _physics.EulerAngles.z);
+            _physics.AddEulerAnglesDelta(eulerAngles);
+        }
+
         private Vector3 CalculateWorldPoint(Vector3 mousePosition)
         {
             Vector3 cameraPosition = CameraSystem.GetCameraPosition();

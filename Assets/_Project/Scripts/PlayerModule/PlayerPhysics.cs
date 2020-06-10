@@ -9,6 +9,7 @@ namespace SpaceshipWarrior.PlayerModule
         private Transform _transform;
 
         public Vector3 Position => _transform.position;
+        public Vector3 EulerAngles => _transform.rotation.eulerAngles;
 
         public void Initialize()
         {
@@ -22,9 +23,14 @@ namespace SpaceshipWarrior.PlayerModule
 
         public void LookAtPoint(Vector3 value)
         {
-            //aqui muda se o jogador estiver apenas com mouse e teclado
-            //Vector3 lookDirection = (value - Position).normalized;
-            //transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+            Vector3 lookDirection = (value - Position).normalized;
+            _transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+        }
+
+        public void AddEulerAnglesDelta(Vector3 value)
+        {
+            Vector3 eulerAngles = EulerAngles + value;
+            _transform.rotation = Quaternion.Euler(eulerAngles);
         }
     }
 }
