@@ -16,6 +16,8 @@ namespace SpaceshipWarrior.InputModule
         public event LookPointChangedHandler OnLookPointChanged;
         public event VerticalRotationDeltaChangedHandler OnVerticalRotationDeltaChanged;
 
+        private const float NormalizerFactor = 1.0f / 32768.0f;
+
         [Header("Arduino")]
         [SerializeField] private string _arduinoPortName = "\\\\.\\" + "COM4";
         [SerializeField] private int _arduinoBaudRate = 9600;
@@ -88,14 +90,14 @@ namespace SpaceshipWarrior.InputModule
             const char splitter = ';';
 
             string[] rawData = data.Split(splitter);
-            float verticalAngle = int.Parse(rawData[4]);
+            float gyroscopeVerticalAngle = int.Parse(rawData[4]) * NormalizerFactor;
 
-            if (Mathf.Abs(verticalAngle) < tolerance)
+            if (Mathf.Abs(gyroscopeVerticalAngle) < tolerance)
             {
-                verticalAngle = 0f;
+                gyroscopeVerticalAngle = 0f;
             }
 
-            OnVerticalRotationDeltaChanged?.Invoke(-verticalAngle);
+            OnVerticalRotationDeltaChanged?.Invoke(-gyroscopeVerticalAngle);
         }
     }
 }
