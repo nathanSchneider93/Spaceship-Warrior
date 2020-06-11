@@ -16,12 +16,15 @@ namespace SpaceshipWarrior.InputModule
         public event LookPointChangedHandler OnLookPointChanged;
         public event VerticalRotationDeltaChangedHandler OnVerticalRotationDeltaChanged;
 
+        private const int BaudRateDefaultValue = 9600;
+        private const float VerticalAngleFactorDefaultValue = 45f;
         private const float NormalizerFactor = 1.0f / 32768.0f;
+        private const string PortNameDefaultValue = "COM4";
 
         [Header("Arduino")]
-        [SerializeField] private string _arduinoPortName = "\\\\.\\" + "COM4";
-        [SerializeField] private float _arduinoVerticalAngleFactor = 7f;
-        [SerializeField] private int _arduinoBaudRate = 9600;
+        [SerializeField] private string _portName = PortNameDefaultValue;
+        [SerializeField] private int _baudRate = BaudRateDefaultValue;
+        [SerializeField] private float _verticalAngleFactor = VerticalAngleFactorDefaultValue;
 
         [Header("Keyboard and Mouse")]
         [SerializeField] private KeyCode _fireKey;
@@ -36,7 +39,7 @@ namespace SpaceshipWarrior.InputModule
 
             foreach (string portName in availablePorts)
             {
-                if (!string.Equals(portName, _arduinoPortName))
+                if (!string.Equals(portName, _portName))
                 {
                     continue;
                 }
@@ -50,12 +53,12 @@ namespace SpaceshipWarrior.InputModule
             {
                 _onUpdate = OnUpdateKeyboardAndMouse;
 
-                Debug.LogError($"No port with name {_arduinoPortName} was found.");
+                Debug.LogError($"No port with name {_portName} was found.");
 
                 return;
             }
 
-            _serialPort = new SerialPort(_arduinoPortName, _arduinoBaudRate) { ReadTimeout = 2000 };
+            _serialPort = new SerialPort(_portName, _baudRate) { ReadTimeout = 2000 };
             _serialPort.Open();
             _onUpdate = OnUpdateArduino;
         }
@@ -102,7 +105,7 @@ namespace SpaceshipWarrior.InputModule
                 gyroscopeVerticalAngle = 0f;
             }
 
-            OnVerticalRotationDeltaChanged?.Invoke(-gyroscopeVerticalAngle * _arduinoVerticalAngleFactor);
+            OnVerticalRotationDeltaChanged?.Invoke(-gyroscopeVerticalAngle * _verticalAngleFactor);
         }
     }
 }
