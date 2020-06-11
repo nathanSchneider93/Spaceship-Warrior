@@ -48,6 +48,7 @@ namespace SpaceshipWarrior.InputModule
             if (!foundPort)
             {
                 _onUpdate = OnUpdateKeyboardAndMouse;
+                print($"No port with name {_arduinoPortName} was found.");
 
                 return;
             }
@@ -74,11 +75,12 @@ namespace SpaceshipWarrior.InputModule
 
         private void OnUpdateArduino()
         {
-            var data = "Null received";
+            var data = "";
 
             if (_serialPort.IsOpen)
             {
                 data = _serialPort.ReadLine();
+                print($"Read {data} from {nameof(SerialPort)}.");
             }
 
             if (string.IsNullOrWhiteSpace(data))
@@ -91,6 +93,9 @@ namespace SpaceshipWarrior.InputModule
 
             string[] rawData = data.Split(splitter);
             float gyroscopeVerticalAngle = int.Parse(rawData[4]) * NormalizerFactor;
+
+            print($"{nameof(rawData)}: {rawData[4]}");
+            print($"{nameof(gyroscopeVerticalAngle)}: {gyroscopeVerticalAngle}");
 
             if (Mathf.Abs(gyroscopeVerticalAngle) < tolerance)
             {
