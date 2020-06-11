@@ -20,6 +20,7 @@ namespace SpaceshipWarrior.InputModule
 
         [Header("Arduino")]
         [SerializeField] private string _arduinoPortName = "\\\\.\\" + "COM4";
+        [SerializeField] private float _arduinoVerticalAngleFactor = 7f;
         [SerializeField] private int _arduinoBaudRate = 9600;
 
         [Header("Keyboard and Mouse")]
@@ -101,7 +102,7 @@ namespace SpaceshipWarrior.InputModule
                 gyroscopeVerticalAngle = 0f;
             }
 
-            OnVerticalRotationDeltaChanged?.Invoke(-gyroscopeVerticalAngle);
+            OnVerticalRotationDeltaChanged?.Invoke(-gyroscopeVerticalAngle * _arduinoVerticalAngleFactor);
         }
     }
 }
