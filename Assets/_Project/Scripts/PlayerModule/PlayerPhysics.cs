@@ -5,6 +5,7 @@ namespace SpaceshipWarrior.PlayerModule
     public class PlayerPhysics : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private Rigidbody _rigidbody;
 
         private Transform _transform;
 
