@@ -1,47 +1,8 @@
 fileFormatVersion: 2
-guid: b1779a4c91ac61340a48d56884ba2655
+guid: 89cf8d29293764942919cdcbae73e02a
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: Plane
-  - first:
-      1: 100002
-    second: Plane.001
-  - first:
-      1: 100004
-    second: //RootNode
-  - first:
-      4: 400000
-    second: Plane
-  - first:
-      4: 400002
-    second: Plane.001
-  - first:
-      4: 400004
-    second: //RootNode
-  - first:
-      21: 2100000
-    second: Material.001
-  - first:
-      23: 2300000
-    second: Plane
-  - first:
-      23: 2300002
-    second: Plane.001
-  - first:
-      33: 3300000
-    second: Plane
-  - first:
-      33: 3300002
-    second: Plane.001
-  - first:
-      43: 4300000
-    second: Plane.001
-  - first:
-      43: 4300002
-    second: Plane
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -107,7 +68,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -119,7 +80,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 100
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
