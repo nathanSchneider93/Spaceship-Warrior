@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 
+[DisableAutoCreation]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 public sealed class HealthInitializationSystem : SystemBase
 {

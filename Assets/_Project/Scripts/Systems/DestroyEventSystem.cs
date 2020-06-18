@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 
+[DisableAutoCreation]
 [UpdateInGroup(typeof(LateSimulationSystemGroup))]
 [UpdateAfter(typeof(DamageEventSystem))]
 public class DestroyEventSystem : SystemBase

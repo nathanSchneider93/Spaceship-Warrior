@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[DisableAutoCreation]
 [UpdateBefore(typeof(TransformSystemGroup))]
 public sealed class AimSystem : SystemBase
 {

@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
 
+[DisableAutoCreation]
 [UpdateBefore(typeof(AimSystem))]
 public sealed class MovementSystem : SystemBase
 {

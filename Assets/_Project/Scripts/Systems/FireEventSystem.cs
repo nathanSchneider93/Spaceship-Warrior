@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 
+[DisableAutoCreation]
 [UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public sealed class FireEventSystem : SystemBase
 {

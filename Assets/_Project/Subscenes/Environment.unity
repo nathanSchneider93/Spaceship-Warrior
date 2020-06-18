@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1207749111}
   - component: {fileID: 1207749110}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1242928259}
   - component: {fileID: 1242928258}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: DirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

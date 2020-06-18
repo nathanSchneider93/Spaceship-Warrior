@@ -2,6 +2,7 @@
 using Unity.Physics;
 using Unity.Physics.Systems;
 
+[DisableAutoCreation]
 [UpdateAfter(typeof(ExportPhysicsWorld))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
 public sealed partial class CollisionEventSystem : SystemBase

@@ -1,8 +1,10 @@
-﻿using Unity.Collections;
+﻿using SpaceshipWarrior;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[DisableAutoCreation]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 [UpdateAfter(typeof(PlayerInputSystem))]
 public sealed partial class ScreenToWorldAimPositionSystem : SystemBase

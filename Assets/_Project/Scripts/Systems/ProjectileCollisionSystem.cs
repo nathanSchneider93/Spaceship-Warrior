@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 
+[DisableAutoCreation]
 [UpdateInGroup(typeof(LateSimulationSystemGroup)), UpdateBefore(typeof(DamageEventSystem))]
 public sealed class ProjectileCollisionSystem : SystemBase
 {
